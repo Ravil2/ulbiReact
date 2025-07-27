@@ -2,7 +2,6 @@ import { useState } from 'react'
 import PostList from './components/PostList'
 import MyButton from './components/UI/button/MyButton'
 import MyInput from './components/UI/input/MyInput'
-import { useRef } from 'react'
 
 export default function App() {
   const [posts, setPosts] = useState([
@@ -11,13 +10,14 @@ export default function App() {
     { id: 3, title: 'JavaScript3', body: 'JS - Programming language' },
   ])
   const [title, setTitle] = useState('')
-  const bodyInputRef = useRef()
+  const [descr, setDescr] = useState('')
 
   const addNewPost = (e) => {
     e.preventDefault()
     setTitle('')
-    console.log(title)
-    console.log(bodyInputRef.current.value)
+    setDescr('')
+    console.log('Название: ', title)
+    console.log('Описание: ', descr)
   }
 
   return (
@@ -30,7 +30,12 @@ export default function App() {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <MyInput ref={bodyInputRef} placeholder="Описание" type="text" />
+        <MyInput
+          placeholder="Описание"
+          type="text"
+          value={descr}
+          onChange={(e) => setDescr(e.target.value)}
+        />
 
         <MyButton type="submit" onClick={addNewPost}>
           Добавить пост
