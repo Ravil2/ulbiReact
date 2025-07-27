@@ -9,40 +9,29 @@ export default function App() {
     { id: 2, title: 'JavaScript2', body: 'JS - Programming language' },
     { id: 3, title: 'JavaScript3', body: 'JS - Programming language' },
   ])
-  const [title, setTitle] = useState('')
-  const [descr, setDescr] = useState('')
+  const [post, setPost] = useState({ title: '', descr: '' })
 
   const addNewPost = (e) => {
     e.preventDefault()
-    const newPost = {
-      id: Date.now(),
-      title,
-      descr,
-    }
-    setPosts([...posts, newPost])
-    setTitle('')
-    setDescr('')
-    console.log('Название: ', title)
-    console.log('Описание: ', descr)
+    setPosts([...posts, { ...post, id: Date.now() }])
+    setPost({ title: '', descr: '' })
   }
 
   return (
     <div>
       <form>
         <MyInput
-          placeholder="Название"
+          value={post.title}
+          onChange={(e) => setPost({ ...post, title: e.target.value })}
           type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Название поста"
         />
-
         <MyInput
-          placeholder="Описание"
+          value={post.descr}
+          onChange={(e) => setPost({ ...post, descr: e.target.value })}
           type="text"
-          value={descr}
-          onChange={(e) => setDescr(e.target.value)}
+          placeholder="Описание поста"
         />
-
         <MyButton type="submit" onClick={addNewPost}>
           Добавить пост
         </MyButton>
