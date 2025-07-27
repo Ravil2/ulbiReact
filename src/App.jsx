@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Post from './components/Post'
+import PostList from './components/PostList'
 
 export default function App() {
   const [posts, setPosts] = useState([
@@ -10,9 +10,7 @@ export default function App() {
 
   return (
     <div>
-      {posts.map((postItem) => (
-        <Post key={postItem.id} post={postItem} />
-      ))}
+      <PostList posts={posts} title="Posts list 1" />
     </div>
   )
 }
