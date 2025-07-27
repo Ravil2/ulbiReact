@@ -14,6 +14,12 @@ export default function App() {
 
   const addNewPost = (e) => {
     e.preventDefault()
+    const newPost = {
+      id: Date.now(),
+      title,
+      descr,
+    }
+    setPosts([...posts, newPost])
     setTitle('')
     setDescr('')
     console.log('Название: ', title)
