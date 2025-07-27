@@ -1,7 +1,11 @@
-import React from 'react'
+import Counter from './components/Counter'
+import ClassCounter from './components/ClassCounter'
 
 export default function App() {
   return (
-    <div>App</div>
+    <div>
+      <Counter />
+      <ClassCounter />
+    </div>
   )
 }
