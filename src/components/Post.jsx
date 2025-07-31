@@ -1,3 +1,5 @@
+import MyButton from './UI/button/MyButton'
+
 export default function Post(props) {
   return (
     <div className="post">
@@ -8,7 +10,7 @@ export default function Post(props) {
         <div>{props.post.descr}</div>
       </div>
       <div className="post__btns">
-        <button>Удалить</button>
+        <MyButton onClick={() => props.remove(props.post)}>Удалить</MyButton>
       </div>
     </div>
   )
