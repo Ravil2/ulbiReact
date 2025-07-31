@@ -24,6 +24,12 @@ export default function App() {
     return posts
   }, [posts, selectedSort])
 
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter((post) =>
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    )
+  }, [searchQuery, sortedPosts])
+
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
   }
@@ -58,7 +64,7 @@ export default function App() {
       </div>
       {posts.length ? (
         <PostList
-          posts={sortedPosts}
+          posts={sortedAndSearchedPosts}
           title="Posts list 1"
           remove={removePost}
         />
