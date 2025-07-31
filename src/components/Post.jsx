@@ -7,7 +7,7 @@ export default function Post(props) {
         <strong>
           {props.number}. {props.post.title}
         </strong>
-        <div>{props.post.descr}</div>
+        <div>{props.post.body}</div>
       </div>
       <div className="post__btns">
         <MyButton onClick={() => props.remove(props.post)}>Удалить</MyButton>

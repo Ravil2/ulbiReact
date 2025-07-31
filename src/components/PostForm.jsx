@@ -3,7 +3,7 @@ import MyInput from './UI/input/MyInput'
 import MyButton from './UI/button/MyButton'
 
 export default function PostForm({ create }) {
-  const [post, setPost] = useState({ title: '', descr: '' })
+  const [post, setPost] = useState({ title: '', body: '' })
 
   const addNewPost = (e) => {
     e.preventDefault()
@@ -12,7 +12,7 @@ export default function PostForm({ create }) {
       id: Date.now(),
     }
     create(newPost)
-    setPost({ title: '', descr: '' })
+    setPost({ title: '', body: '' })
   }
 
   return (
@@ -24,8 +24,8 @@ export default function PostForm({ create }) {
         placeholder="Название поста"
       />
       <MyInput
-        value={post.descr}
-        onChange={(e) => setPost({ ...post, descr: e.target.value })}
+        value={post.body}
+        onChange={(e) => setPost({ ...post, body: e.target.value })}
         type="text"
         placeholder="Описание поста"
       />
