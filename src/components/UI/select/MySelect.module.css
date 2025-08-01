@@ -1,0 +1,75 @@
+/* MySelect.module.css */
+
+.select {
+  position: relative;
+  width: 100%;
+  margin: 12px 0;
+}
+
+.select select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #2d3748;
+  background-color: #ffffff;
+  border: 2px solid #a9ceff;
+  border-radius: 6px;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.select select:hover {
+  border-color: #cbd5e0;
+}
+
+.select select:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.select::after {
+  content: "▼";
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: #718096;
+  font-size: 12px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.select:hover::after {
+  color: #4a5568;
+}
+
+.select select option {
+  background-color: #ffffff;
+  color: #2d3748;
+  padding: 10px;
+}
+
+.select select option:disabled {
+  color: #a0aec0;
+  background-color: #ffffff;
+}
+
+/* Для иконки стрелки можно использовать SVG для лучшего контроля */
+.select svg {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  color: #718096;
+  transition: color 0.2s ease;
+}
+
+.select:hover svg {
+  color: #4a5568;
+}

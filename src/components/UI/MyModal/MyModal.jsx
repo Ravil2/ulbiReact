@@ -8,7 +8,14 @@ export default function MyModal({ children, visible, setVisible }) {
 
   return (
     <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
-      <div className={cl.myModalContent}>{children}</div>
+      <div className={cl.myModalContent} onClick={(e) => e.stopPropagation()}>
+        <span
+          style={{ fontWeight: 'bold', fontSize: '24px', color: '#373737ff' }}
+        >
+          Модальное окно
+        </span>
+        {children}
+      </div>
     </div>
   )
 }
