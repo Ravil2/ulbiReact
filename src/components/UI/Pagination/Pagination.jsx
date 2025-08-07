@@ -1,4 +1,4 @@
-import MyButton from "../button/MyButton"
+import MyButton from '../button/MyButton'
 
 export default function Pagination({ pages, page, setPage, setSkip, limit }) {
   return (
