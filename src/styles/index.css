@@ -1,74 +1,66 @@
+:root {
+  --primary-gradient: linear-gradient(
+    135deg,
+    #60cdff 0%,
+    #7e8ffe 50%,
+    #e9ffd0 100%
+  );
+  --secondary-gradient: linear-gradient(to right, #ff7eb3, #ff758c);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --text-dark: #2d3748;
+  --text-light: #4a5568;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  width: 100vw;
+  min-height: 100vh;
+  background: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+  color: var(--text-dark);
 }
 
 #root {
   display: flex;
-  justify-content: center;
-}
-
-.post {
-  display: flex;
-  padding: 25px;
-  border: none;
-  margin: 20px auto;
-  width: 50vw;
-  min-width: 300px;
-  max-width: 600px;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.post::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(to bottom, #60cdff, #e9ffd0);
-}
-
-/* Появление */
-.post-enter {
-  opacity: 0.01;
-}
-
-.post-enter-active {
-  opacity: 1;
-  transform: translateX(-150px);
-  transition: all 500ms ease-in;
-}
-
-/* Удаление */
-.post-exit {
-  opacity: 1;
-}
-
-.post-exit-active {
-  opacity: 0.01;
-  transform: translateY(-50px);
-  transition: all 500ms ease-in;
-}
-
-.navbar {
-  height: 50px;
+  flex-direction: column;
   width: 100%;
-  display: flex;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  min-height: 100vh;
   align-items: center;
-  padding: 0 15px;
-  background-color: #60cdff;
-  margin-left: auto;
+  box-sizing: border-box;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgba(233, 255, 208, 0.1) 0%,
+    rgba(96, 205, 255, 0.05) 90%
+  );
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Modern navbar with glass morphism */
+.navbar {
+  height: 70px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .navbar__links {
@@ -77,11 +69,278 @@ body {
   width: 100%;
   justify-content: space-between;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-dark);
 }
 
-.post__btns{
+.navbar__links a {
+  position: relative;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: width 0.3s ease;
+}
+
+.navbar__links a:hover::after {
+  width: 80%;
+}
+
+/* Enhanced post card with glass effect */
+.post {
   display: flex;
-  gap: 5px;
+  padding: 30px;
+  margin: 24px 0;
+  width: 100%;
+  max-width: 800px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.post:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.post::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--primary-gradient);
+  transition: all 0.4s ease;
+}
+
+.post:hover::before {
+  width: 8px;
+}
+
+.post__btns {
+  display: flex;
+  gap: 12px;
+}
+
+.post__btns button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post__btns button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Modern post card with gradient border */
+.post-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 24px 0;
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.post-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--primary-gradient);
+  z-index: -1;
+  border-radius: 22px;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.post-card:hover::after {
+  opacity: 0.8;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.post-meta {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: var(--text-dark);
+  line-height: 1.3;
+  background: linear-gradient(to right, #2d3748, #4a5568);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.post-body {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.post-tag {
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+
+.post-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 16px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.reactions span {
+  margin-right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reactions span:hover {
+  color: #ff758c;
+  transform: scale(1.1);
+}
+
+/* Enhanced animations */
+.post-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.post-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.post-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.post-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 300ms ease-in;
+}
+
+/* Responsive design with fluid typography */
+@media (max-width: 768px) {
+  .post,
+  .post-card {
+    padding: 20px;
+    margin: 16px 0;
+    border-radius: 14px;
+    max-width: 95%;
+    backdrop-filter: blur(4px);
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+  }
+
+  .post-body {
+    font-size: 1rem;
+  }
+
+  .navbar {
+    height: 60px;
+    padding: 0 20px;
+  }
+
+  .navbar__links {
+    font-size: 1rem;
+  }
+}
+
+/* Floating particles background effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(96, 205, 255, 0.15) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(233, 255, 208, 0.15) 0%,
+      transparent 20%
+    );
+  z-index: -1;
+  pointer-events: none;
 }

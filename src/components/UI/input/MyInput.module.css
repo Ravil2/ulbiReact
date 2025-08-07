@@ -1,48 +1,161 @@
 .myInput {
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-text: #2d3748;
+  --input-placeholder: #a0aec0;
+  --input-focus: #4361ee;
+  --input-hover: #edf2f7;
+  --input-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  
   width: 100%;
-  padding: 12px 16px;
-  margin: 8px 0;
+  padding: 14px 16px;
+  margin: 10px 0;
   font-size: 15px;
-  color: #2d3748;
-  background-color: #ffffff;
-  border: 2px solid #93bdf4;
-  border-radius: 6px;
+  line-height: 1.5;
+  color: var(--input-text);
+  background-color: var(--input-bg);
+  border: 2px solid var(--input-border);
+  border-radius: 8px;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
-  font-family: inherit;
+  font-family: 'Inter', sans-serif;
+  box-shadow: var(--input-shadow);
+  appearance: none;
 }
 
 .myInput::placeholder {
-  color: #a0aec0;
+  color: var(--input-placeholder);
+  opacity: 1;
   font-weight: 400;
-}
-
-.myInput:focus {
-  border-color: #4299e1;
-  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  transition: all 0.2s ease;
 }
 
 .myInput:hover {
-  border-color: #cbd5e0;
+  border-color: var(--input-hover);
+  background-color: #f8fafc;
 }
 
-/* Темная тема */
+.myInput:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+  background-color: #ffffff;
+}
+
+.myInput:focus::placeholder {
+  opacity: 0.5;
+  transform: translateX(4px);
+}
+
+/* Floating label effect */
+.input-group {
+  position: relative;
+  margin: 16px 0;
+}
+
+.input-group label {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  color: var(--input-placeholder);
+  background: var(--input-bg);
+  padding: 0 4px;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-size: 15px;
+}
+
+.input-group .myInput:focus + label,
+.input-group .myInput:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 12px;
+  font-size: 12px;
+  color: var(--input-focus);
+  background: var(--input-bg);
+}
+
+/* With icon */
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .myInput {
+  padding-left: 42px;
+}
+
+.input-with-icon svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--input-placeholder);
+  transition: color 0.3s ease;
+}
+
+.input-with-icon .myInput:focus + svg {
+  color: var(--input-focus);
+}
+
+/* Dark theme */
 .dark .myInput {
-  color: #f7fafc;
-  background-color: #2d3748;
-  border-color: #4a5568;
+  --input-bg: #2d3748;
+  --input-border: #4a5568;
+  --input-text: #f7fafc;
+  --input-placeholder: #718096;
+  --input-focus: #60a5fa;
+  --input-hover: #4a5568;
 }
 
-.dark .myInput::placeholder {
-  color: #718096;
-}
-
-.dark .myInput:focus {
-  border-color: #63b3ed;
-  box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+.dark .input-group label {
+  background: var(--input-bg);
 }
 
 .dark .myInput:hover {
-  border-color: #718096;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.dark .myInput:focus {
+  background-color: #2d3748;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15);
+}
+
+/* Validation states */
+.myInput.error {
+  border-color: #ef4444;
+}
+
+.myInput.error:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+.myInput.success {
+  border-color: #10b981;
+}
+
+.myInput.success:focus {
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+/* Disabled state */
+.myInput:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.dark .myInput:disabled {
+  background-color: #334155;
+  color: #64748b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .myInput {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  
+  .input-group label {
+    font-size: 14px;
+  }
 }

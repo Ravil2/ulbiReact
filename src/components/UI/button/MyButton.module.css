@@ -1,23 +1,28 @@
 .myBtn {
   padding: 12px 24px;
-  font-size: 14px;
+  font-size: 16px; /* Slightly larger font for better readability */
   font-weight: 500;
   color: #2c7be5;
   background-color: #ffffff;
   border: 1px solid #d5e3f5;
-  border-radius: 6px;
+  border-radius: 8px; /* Slightly larger radius for modern look */
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Slightly stronger shadow for depth */
   position: relative;
   overflow: hidden;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  width: 100%; /* Full-width by default for consistency */
+  max-width: 300px; /* Cap width for larger screens */
+  text-align: center; /* Center text for better alignment */
 }
+
 
 .myBtn:hover {
   background-color: #f5f9ff;
   border-color: #b8d1f8;
   transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(44, 123, 229, 0.1);
+  box-shadow: 0 3px 8px rgba(44, 123, 229, 0.15); /* Enhanced hover shadow */
 }
 
 .myBtn:active {
@@ -26,18 +31,30 @@
   transition-duration: 0.05s;
 }
 
-/* Вариант для темной темы */
+/* Dark theme variant */
 .dark .myBtn {
   color: #a4c7ff;
   background-color: #1a2b49;
   border-color: #2a4a7a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adjusted shadow for dark theme */
 }
 
 .dark .myBtn:hover {
   background-color: #22385e;
   border-color: #3a5f9a;
+  box-shadow: 0 3px 8px rgba(44, 123, 229, 0.2); /* Consistent hover shadow */
 }
 
 .dark .myBtn:active {
   background-color: #1c365c;
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .myBtn {
+    padding: 10px 20px; /* Slightly smaller padding for mobile */
+    font-size: 14px; /* Smaller font for mobile */
+    max-width: 100%; /* Allow full-width on smaller screens */
+  }
 }

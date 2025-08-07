@@ -10,7 +10,7 @@ export default function PostList({ posts, title, remove }) {
     return <h1 style={{ textAlign: 'center' }}>No posts!</h1>
   }
   return (
-    <div>
+    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
       <h1 style={{ textAlign: 'center' }}>{title}</h1>
       <TransitionGroup>
         {posts.map((postItem, index) => {
