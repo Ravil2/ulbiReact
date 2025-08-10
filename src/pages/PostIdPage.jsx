@@ -63,7 +63,11 @@ export default function PostIdPage() {
       ) : (
         <div>Загрузка...</div>
       )}
-      <Comments comments={comments} />
+      <Comments
+        comments={comments}
+        isCommentLoading={isCommentLoading}
+        commentError={commentError}
+      />
     </div>
   )
 }
