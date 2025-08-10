@@ -15,4 +15,11 @@ export default class PostService {
     const response = await axios.get('https://dummyjson.com/posts/' + id)
     return response
   }
+
+  static async getByComment(id) {
+    const response = await axios.get(
+      `https://dummyjson.com/posts/${id}/comments`,
+    )
+    return response
+  }
 }
