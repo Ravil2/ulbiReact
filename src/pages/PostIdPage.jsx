@@ -4,6 +4,7 @@ import PostService from '../API/PostService'
 import { useState } from 'react'
 import { useFetching } from '../hooks/useFetching'
 import Loader from '../components/UI/Loader/Loader'
+import Comments from '../components/Comments'
 
 export default function PostIdPage() {
   const params = useParams()
@@ -14,7 +15,6 @@ export default function PostIdPage() {
     const response = await PostService.getById(id)
     setPost(response.data)
   })
-  console.log(comments)
 
   const [fetchingComments, isCommentLoading, commentError] = useFetching(
     async (id) => {
@@ -27,8 +27,6 @@ export default function PostIdPage() {
     fetchingPost(params.id)
     fetchingComments(params.id)
   }, [params.id])
-
-  console.log('post', post)
 
   return (
     <div style={{ marginTop: '10px' }}>
@@ -65,10 +63,7 @@ export default function PostIdPage() {
       ) : (
         <div>Загрузка...</div>
       )}
-      <h1>Комментарии</h1>
-      {comments?.map((com) => (
-        <h3 key={com.id}>{com.body}</h3>
-      ))}
+      <Comments comments={comments} />
     </div>
   )
 }
