@@ -13,6 +13,7 @@ import { getPageCount } from '../components/utils/pages'
 import { usePagination } from '../hooks/usePaginatio'
 import Pagination from '../components/UI/Pagination/Pagination'
 import { useRef } from 'react'
+import { useObserver } from '../hooks/useObserver'
 
 export default function Posts() {
   const [posts, setPosts] = useState([])
@@ -24,7 +25,6 @@ export default function Posts() {
   const [page, setPage] = useState(1)
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
   const lastElement = useRef()
-  const observer = useRef()
   const pages = usePagination(totalPages)
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
@@ -34,19 +34,9 @@ export default function Posts() {
     setTotalPages(getPageCount(totalCount, limit))
   })
 
-  useEffect(() => {
-    if (isPostsLoading) return
-    if (observer.current) observer.current.disconnect()
-    observer.current = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && page < totalPages) {
-        setPage((prev) => prev + 1)
-      }
-    })
-
-    if (lastElement.current) {
-      observer.current.observe(lastElement.current)
-    }
-  }, [isPostsLoading, totalPages, page])
+  useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+    setPage((prev) => prev + 1)
+  })
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -88,7 +78,7 @@ export default function Posts() {
       />
       <div
         ref={lastElement}
-        style={{ height: '20px', backgroundColor: 'red' }}
+        style={{ height: '20px', backgroundColor: 'inherit' }}
       ></div>
       {isPostsLoading && (
         <div
