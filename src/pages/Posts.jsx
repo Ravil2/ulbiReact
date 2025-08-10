@@ -12,6 +12,7 @@ import { useFetching } from '../hooks/useFetching'
 import { getPageCount } from '../components/utils/pages'
 import { usePagination } from '../hooks/usePaginatio'
 import Pagination from '../components/UI/Pagination/Pagination'
+import { useRef } from 'react'
 
 export default function Posts() {
   const [posts, setPosts] = useState([])
@@ -22,17 +23,30 @@ export default function Posts() {
   const [skip, setSkip] = useState(0)
   const [page, setPage] = useState(1)
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query)
-
+  const lastElement = useRef()
+  const observer = useRef()
   const pages = usePagination(totalPages)
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
     const response = await PostService.getAll(limit, skip)
-    setPosts(response.data.posts)
+    setPosts([...posts, ...response.data.posts])
     const totalCount = response.data.total
     setTotalPages(getPageCount(totalCount, limit))
   })
 
-  console.log(totalPages)
+  useEffect(() => {
+    if (isPostsLoading) return
+    if (observer.current) observer.current.disconnect()
+    observer.current = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && page < totalPages) {
+        setPage((prev) => prev + 1)
+      }
+    })
+
+    if (lastElement.current) {
+      observer.current.observe(lastElement.current)
+    }
+  }, [isPostsLoading, totalPages, page])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -44,8 +58,16 @@ export default function Posts() {
   }
 
   useEffect(() => {
-    fetchPosts()
-  }, [skip, limit])
+    setSkip((page - 1) * limit)
+  }, [page, limit])
+
+  useEffect(() => {
+    fetchPosts(limit, skip)
+  }, [skip])
+
+  const changePage = (page) => {
+    setPage(page)
+  }
 
   return (
     <div>
@@ -59,7 +81,16 @@ export default function Posts() {
       <hr style={{ margin: '15px 0px' }} />
       <PostFilter filter={filter} setFilter={setFilter} />
       {postError && <h1>Произошла ошибка: {postError.message}</h1>}
-      {isPostsLoading ? (
+      <PostList
+        posts={sortedAndSearchedPosts}
+        title="Posts list 1"
+        remove={removePost}
+      />
+      <div
+        ref={lastElement}
+        style={{ height: '20px', backgroundColor: 'red' }}
+      ></div>
+      {isPostsLoading && (
         <div
           style={{
             display: 'flex',
@@ -69,12 +100,6 @@ export default function Posts() {
         >
           <Loader />
         </div>
-      ) : (
-        <PostList
-          posts={sortedAndSearchedPosts}
-          title="Posts list 1"
-          remove={removePost}
-        />
       )}
 
       <Pagination
